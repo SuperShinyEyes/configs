@@ -1,0 +1,106 @@
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(add-to-list 'load-path "~/.emacs.d/custom")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-slim")
+
+;;(require 'slim-mode)
+
+;; Custom magit commit
+(defun foo-magit-manual-commit (msg)
+  (interactive "sMessage: ")
+  (shell-command (format "git commit -m \"%s\"" msg))
+  (magit-refresh))
+
+
+;; No splash screen
+(setq inhibit-startup-screen t)
+
+;; Buffer selector C-x C-b
+;; Advanced with filtering capabilities (see menu)
+(global-set-key "" (quote ibuffer))
+
+;; Simpler
+;; (global-set-key "" (quote bs-show))
+
+;; Ido mode for buffers only (C-x b)
+(ido-mode 'buffers)
+
+;; Winner mode on
+(winner-mode 1)
+
+;; Navigate between windows using Alt-1, Alt-2, Shift-left, shift-up, shift-right
+(windmove-default-keybindings)
+
+;; Enable copy and pasting from clipboard
+(setq x-select-enable-clipboard t)
+
+;; No tool bar
+(tool-bar-mode 0)
+
+
+;; Set left option as meta and keep right option as option
+(setq mac-option-key-is-meta t)
+(setq mac-right-option-modifier nil)
+
+;; Never ask "yes" or "no", only "y" or "n".
+(fset 'yes-or-no-p #'y-or-n-p)
+
+;; Highlight parentheses
+(show-paren-mode 1)
+
+;; Line numbers on the side
+(global-linum-mode t)
+
+;; Set common OS X jumps
+(global-set-key [s-right] (quote end-of-line))
+(global-set-key [s-left] (quote beginning-of-line))
+(global-set-key [s-up] (quote beginning-of-buffer))
+(global-set-key [s-down] (quote end-of-buffer))
+
+;; No bell ringing
+(setq ring-bell-function 'ignore)
+
+;; C-x C-k to kill current buffer
+(global-set-key "" (quote kill-this-buffer))
+
+;; Emacs powerline
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
+(require 'powerline)
+
+;; dabbrev completion
+(global-set-key (kbd "C-<tab>") 'dabbrev-expand)
+(define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (tango-dark)))
+ '(mouse-wheel-progressive-speed nil)
+ '(mouse-wheel-scroll-amount (quote (2 ((shift) . 1) ((control)))))
+ '(nil nil t)
+ '(org-startup-indented t)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil)
+ '(visible-bell nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#2e3436" :foreground "#eeeeec" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Monaco"))))
+ '(mode-line ((t (:background "#d3d7cf" :foreground "#2e3436" :box (:line-width -1 :style released-button) :height 1.0)))))
+(put 'upcase-region 'disabled nil)
+
+;; For project file path
+;(speedbar 1)
+
+
+ (cua-mode t)
+ (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+ (transient-mark-mode 1) ;; No region when it is not highlighted
+ (setq cua-keep-region-after-copy t) ;; Standard Windows behaviour
+
